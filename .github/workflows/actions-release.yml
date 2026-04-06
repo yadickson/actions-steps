@@ -18,7 +18,6 @@ jobs:
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
           make_latest: true
-          tag_name: ${{ github.ref_name }}
       - name: Mutable tag
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
