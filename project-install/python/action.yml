@@ -1,0 +1,15 @@
+name: 'actions-steps/project-install/python'
+description: 'Installing python project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: installing python project
+      if: hashFiles('pyproject.toml') != ''
+      run: poetry export --without-hashes --output requirements.txt
+      shell: bash

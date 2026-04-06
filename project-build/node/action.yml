@@ -1,0 +1,15 @@
+name: 'actions-steps/project-build/node'
+description: 'Building node project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: building node project
+      if: hashFiles('package.json') != ''
+      run: npm run build
+      shell: bash

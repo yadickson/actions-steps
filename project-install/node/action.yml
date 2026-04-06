@@ -1,0 +1,15 @@
+name: 'actions-steps/project-install/node'
+description: 'Installing node project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: installing node project
+      if: hashFiles('package.json') != ''
+      run: npm install --force --verbose
+      shell: bash

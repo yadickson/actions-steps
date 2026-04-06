@@ -1,0 +1,15 @@
+name: 'actions-steps/project-build/python'
+description: 'Building python project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: building python project
+      if: hashFiles('pyproject.toml') != ''
+      run: poetry build
+      shell: bash
