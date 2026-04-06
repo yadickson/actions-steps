@@ -14,6 +14,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v6
+      - name: cleaning
+        run: |
+          VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
+          gh release delete "${VERSION}" --cleanup-tag --yes || true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
       - name: release
         uses: softprops/action-gh-release@v2
         with:
@@ -31,7 +38,6 @@ jobs:
       - name: tagged
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
-          gh release delete "${VERSION}" --yes || true
           gh release create "${VERSION}" || true
           gh release edit ${VERSION} --tag "${{ github.ref_name }}" --latest
         shell: bash
