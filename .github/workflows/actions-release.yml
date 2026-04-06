@@ -21,8 +21,7 @@ jobs:
       - name: Mutable tag
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
-          echo "${VERSION}"
-          gh release delete "${VERSION}" --yes
+          gh release delete "${VERSION}" --yes || true
           gh release create "${VERSION}"
         shell: bash
         env:
