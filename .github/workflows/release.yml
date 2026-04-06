@@ -19,23 +19,9 @@ jobs:
           token: ${{ secrets.ACTIONS_TOKEN }}
           make_latest: true
 
-  version:
-    name: version
+  tagged:
+    name: tagged
     needs: release
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-    steps:
-      - name: version
-        id: version
-        run: |
-          VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-        shell: bash
-
-  cleaning:
-    name: cleaning
-    needs: version
     runs-on: ubuntu-latest
 
     steps:
@@ -43,23 +29,8 @@ jobs:
         uses: actions/checkout@v6
       - name: cleaning
         run: |
-          VERSION=${{ needs.version.outputs.version }}
+          VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
           gh release delete "${VERSION}" --cleanup-tag --yes || true
-        shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
-
-  tagged:
-    name: tagged
-    needs: cleaning
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: checkout
-        uses: actions/checkout@v6
-      - name: tagged
-        run: |
-          VERSION=${{ needs.version.outputs.version }}
           gh release create "${VERSION}"
           gh release edit ${VERSION} --tag "${{ github.ref_name }}" --latest
         shell: bash
