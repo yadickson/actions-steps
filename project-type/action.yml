@@ -33,7 +33,7 @@ runs:
         if [ -n "${TYPE}" ]; then
           echo "type=${TYPE}" >> $GITHUB_OUTPUT
         else
-          echo "Project type not found"
+          echo "Project is not node|python"
           exit 1
         fi
       shell: bash
