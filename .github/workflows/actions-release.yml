@@ -24,3 +24,5 @@ jobs:
           gh release delete ${VERSION} --yes
           gh release create ${VERSION}
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
