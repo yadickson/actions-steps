@@ -24,10 +24,10 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.cleaning.outputs.version }}
+      version: ${{ steps.version.outputs.version }}
     steps:
-      - name: cleaning
-        id: cleaning
+      - name: version
+        id: version
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
@@ -58,7 +58,7 @@ jobs:
       - name: tagged
         run: |
           VERSION=${{ needs.version.outputs.version }}
-          gh release create "${VERSION}" --yes
+          gh release create "${VERSION}"
           gh release edit ${VERSION} --tag "${{ github.ref_name }}" --latest
         shell: bash
         env:
