@@ -31,7 +31,7 @@ jobs:
       - name: tagged
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
-          gh release delete "${VERSION}" --yes || true
+          gh release delete "${VERSION}" --yes --cleanup-tag || true
           gh release create "${VERSION}"
         shell: bash
         env:

@@ -1,6 +1,27 @@
 Actions Steps
 =============
 
+**actions-steps/project-type**
+
+Reusable step to get and share version.txt file only with version number
+
+
+*How to use*
+
+```yaml
+
+jobs:
+  test_step_project_type:
+    runs-on: ubuntu-latest
+    name: sharing version
+    steps:
+      - uses: actions/checkout@v5
+      - id: project
+        uses: yadickson/actions-steps/project-type@REF
+      - run: echo ${{ steps.project.type }}
+        shell: bash
+```
+
 **actions-steps/cache-version**
 
 Reusable step to get and share version.txt file only with version number
