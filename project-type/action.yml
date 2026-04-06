@@ -1,0 +1,39 @@
+name: 'actions-steps/project-type'
+description: 'Check project type'
+outputs:
+  type:
+    description: "The project type value"
+    value: ${{ steps.project_type.outputs.type }}
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: getting node type
+      id: node_type
+      if: hashFiles('package.json') != ''
+      run: |
+        echo "TYPE=node" >> $GITHUB_ENV
+      shell: bash
+
+    - name: getting python type
+      id: python_type
+      if: hashFiles('pyproject.toml') != ''
+      run: |
+        echo "TYPE=python" >> $GITHUB_ENV
+      shell: bash
+
+    - name: getting project type
+      id: project_type
+      run: |
+        if [ -n "${TYPE}" ]; then
+          echo "type=${TYPE}" >> $GITHUB_OUTPUT
+        else
+          echo "Project type not found"
+          exit 1
+        fi
+      shell: bash
