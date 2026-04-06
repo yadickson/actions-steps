@@ -4,15 +4,24 @@ name: "tagged-release"
 on:
   push:
     tags:
-      - "v*"
+      - "v*.*.*"
 
 jobs:
   tagged-release:
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: true
-          automatic_release_tag: latest
+          token: ${{ secrets.ACTIONS_TOKEN }}
+          make_latest: true
+          tag_name: ${{ github.ref_name }}
+      - name: Mutable tag
+        run: |
+          VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
+          gh release delete ${VERSION} --yes
+          gh release create ${VERSION}
+        shell: bash
