@@ -7,8 +7,21 @@ on:
       - "v*.*.*"
 
 jobs:
+
+  release:
+    name: release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.ACTIONS_TOKEN }}
+          make_latest: true
+
   version:
     name: version
+    needs: release
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.cleaning.outputs.version }}
@@ -34,18 +47,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
 
-  release:
-    name: release
-    needs: cleaning
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: release
-        uses: softprops/action-gh-release@v2
-        with:
-          token: ${{ secrets.ACTIONS_TOKEN }}
-          make_latest: true
-
   tagged:
     name: tagged
     needs: release
@@ -57,7 +58,7 @@ jobs:
       - name: tagged
         run: |
           VERSION=${{ needs.version.outputs.version }}
-          gh release create "${VERSION}"
+          gh release create "${VERSION}" --yes
           gh release edit ${VERSION} --tag "${{ github.ref_name }}" --latest
         shell: bash
         env:
