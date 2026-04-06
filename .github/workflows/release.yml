@@ -18,6 +18,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
+          name: ${{ github.ref_name }}
           make_latest: true
 
   tagged:
@@ -28,11 +29,14 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v6
-      - name: tagged
+      - name: mutable
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
-          gh release delete "${VERSION}" --yes --cleanup-tag || true
-          gh release create "${VERSION}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
         shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+      - name: tagged
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.ACTIONS_TOKEN }}
+          name: ${VERSION}
+          make_latest: false
