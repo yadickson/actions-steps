@@ -10,16 +10,18 @@ jobs:
   version:
     name: version
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.cleaning.outputs.version }}
     steps:
       - name: cleaning
+        id: cleaning
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
         shell: bash
 
   cleaning:
-    name: release
+    name: cleaning
     needs: version
     runs-on: ubuntu-latest
 
