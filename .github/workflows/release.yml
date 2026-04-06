@@ -49,7 +49,7 @@ jobs:
 
   tagged:
     name: tagged
-    needs: release
+    needs: cleaning
     runs-on: ubuntu-latest
 
     steps:
