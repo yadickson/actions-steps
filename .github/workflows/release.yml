@@ -7,7 +7,7 @@ on:
       - "v*.*.*"
 
 jobs:
-  tagged-release:
+  release:
     runs-on: ubuntu-latest
 
     steps:
