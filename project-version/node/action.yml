@@ -1,0 +1,22 @@
+name: 'actions-steps/project-version/node'
+description: 'Getting node project version'
+outputs:
+  version:
+    description: "The node project version value"
+    value: ${{ steps.project_version.outputs.version }}
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: getting node version
+      id: project_version
+      if: hashFiles('package.json') != ''
+      run: |
+        VERSION=$(grep 'version' package.json | cut -f2 -d":" | cut -f2 -d\")
+        echo "version=${VERSION}" >> $GITHUB_OUTPUT
+      shell: bash

@@ -1,0 +1,22 @@
+name: 'actions-steps/project-version/python'
+description: 'Getting python project version'
+outputs:
+  version:
+    description: "The python project version value"
+    value: ${{ steps.project_version.outputs.version }}
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: getting python version
+      id: project_version
+      if: hashFiles('package.json') != ''
+      run: |
+        VERSION=$(grep -E '^version' pyproject.toml | cut -f2 -d":" | cut -f2 -d\")
+        echo "version=${VERSION}" >> $GITHUB_OUTPUT
+      shell: bash
