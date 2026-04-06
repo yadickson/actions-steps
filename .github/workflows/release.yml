@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Release
+      - name: checkout
+        uses: actions/checkout@v6
+      - name: release
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
@@ -24,6 +26,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: checkout
+        uses: actions/checkout@v6
       - name: tagged
         run: |
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
