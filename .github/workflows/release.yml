@@ -33,7 +33,7 @@ jobs:
           VERSION=$(echo "${{ github.ref_name }}" | awk -F. '{print $1}')
           gh release delete "${VERSION}" --yes || true
           gh release create "${VERSION}" || true
-          gh release edit ${VERSION} --latest
+          gh release edit ${VERSION} --tag "${{ github.ref_name }}" --latest
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
