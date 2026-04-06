@@ -39,6 +39,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: checkout
+        uses: actions/checkout@v6
       - name: cleaning
         run: |
           VERSION=${{ needs.version.outputs.version }}
