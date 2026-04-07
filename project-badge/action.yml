@@ -1,5 +1,13 @@
 name: 'actions-steps/project-badge'
 description: 'Create project badge'
+inputs:
+  gist-id:
+    description: gist id
+    required: true
+
+  gist-token:
+    description: gist token
+    required: true
 
 branding:
   icon: 'box'
@@ -13,5 +21,5 @@ runs:
 
     - uses: gaelgirodon/ci-badges-action@v1
       with:
-        gist-id: ${{ secrets.GIST_ID }}
-        token: ${{ secrets.GIST_TOKEN }}
+        gist-id: ${{ inputs.gist-id }}
+        token: ${{ inputs.gist-token }}
