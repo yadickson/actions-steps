@@ -1,0 +1,17 @@
+name: 'actions-steps/project-badge'
+description: 'Create project badge'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - uses: actions/download-artifact@v4
+
+    - uses: gaelgirodon/ci-badges-action@v1
+      with:
+        gist-id: ${{ secrets.GIST_ID }}
+        token: ${{ secrets.GIST_TOKEN }}
