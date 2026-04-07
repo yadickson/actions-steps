@@ -13,7 +13,5 @@ runs:
 
     - uses: gaelgirodon/ci-badges-action@v1
       with:
-        gist-id: ${GIST_ID}
+        gist-id: ${{ secrets.GIST_ID }}
         token: ${{ secrets.GIST_TOKEN }}
-      env:
-        GIST_ID: ${{ secrets.GIST_ID }}
