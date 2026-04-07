@@ -23,7 +23,7 @@ jobs:
         delete_release: true
         tag_name: ${{ env.VERSION }}
       env:
-        github_token: ${{ secrets.ACTIONS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
 
   release:
     name: release
