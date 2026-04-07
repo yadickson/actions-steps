@@ -14,14 +14,12 @@ runs:
   steps:
 
     - name: getting node type
-      id: node_type
       if: hashFiles('package.json') != ''
       run: |
         echo "TYPE=node" >> $GITHUB_ENV
       shell: bash
 
     - name: getting python type
-      id: python_type
       if: hashFiles('pyproject.toml') != ''
       run: |
         echo "TYPE=python" >> $GITHUB_ENV
@@ -30,8 +28,8 @@ runs:
     - name: getting project type
       id: project_type
       run: |
-        if [ -n "${TYPE}" ]; then
-          echo "type=${TYPE}" >> $GITHUB_OUTPUT
+        if [ -n "${env.TYPE}" ]; then
+          echo "type=${env.TYPE}" >> $GITHUB_OUTPUT
         else
           echo "Project is not node|python"
           exit 1
