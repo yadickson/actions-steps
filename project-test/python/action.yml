@@ -20,8 +20,8 @@ runs:
       with:
         name: xunit
         path: |
-          "reports/xunit.xml"
-          "reports/test-*results.xml"
+          reports/xunit.xml
+          reports/**/test*results.xml
         retention-days: 1
         if-no-files-found: ignore
 

@@ -20,8 +20,8 @@ runs:
       with:
         name: coverage
         path: |
-          "coverage"
-          "reports/coverage"
+          coverage
+          reports/coverage
         retention-days: 1
         if-no-files-found: ignore
 
