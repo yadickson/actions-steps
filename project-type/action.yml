@@ -28,8 +28,8 @@ runs:
     - name: getting project type
       id: project_type
       run: |
-        if [ -n "${env.TYPE}" ]; then
-          echo "type=${env.TYPE}" >> $GITHUB_OUTPUT
+        if [ -n "${{ env.TYPE }}" ]; then
+          echo "type=${{ env.TYPE }}" >> $GITHUB_OUTPUT
         else
           echo "Project is not node|python"
           exit 1
