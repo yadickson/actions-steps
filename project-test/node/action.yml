@@ -1,0 +1,31 @@
+name: 'actions-steps/project-test/node'
+description: 'Testing node project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: testing node project
+      if: hashFiles('package.json') != ''
+      run: npm run test
+      id: testing
+      continue-on-error: true
+      shell: bash
+
+    - uses: actions/upload-artifact@v6
+      with:
+        name: xunit
+        path: |
+          "reports/xunit.xml"
+          "reports/test-*results.xml"
+        retention-days: 1
+        if-no-files-found: ignore
+
+    - name: testing node project fail
+      if: steps.testing.outcome == 'failure'
+      run: exit 1
+      shell: bash

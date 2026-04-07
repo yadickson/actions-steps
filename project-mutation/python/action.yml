@@ -1,0 +1,29 @@
+name: 'actions-steps/project-mutation/python'
+description: 'Mutation testing python project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: mutation testing python project
+      if: hashFiles('pyproject.toml') != ''
+      run: poetry run poe test:mutation
+      id: mutation
+      continue-on-error: true
+      shell: bash
+
+    - uses: actions/upload-artifact@v6
+      with:
+        name: mutation
+        path: "reports/mutation"
+        retention-days: 1
+        if-no-files-found: ignore
+
+    - name: mutation python project fail
+      if: steps.mutation.outcome == 'failure'
+      run: exit 1
+      shell: bash

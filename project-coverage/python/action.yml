@@ -1,0 +1,31 @@
+name: 'actions-steps/project-coverage/python'
+description: 'Coverage python project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: coverage python project
+      if: hashFiles('pyproject.toml') != ''
+      run: poetry run poe test:coverage
+      id: coverage
+      continue-on-error: true
+      shell: bash
+
+    - uses: actions/upload-artifact@v6
+      with:
+        name: coverage
+        path: |
+          "coverage"
+          "reports/coverage"
+        retention-days: 1
+        if-no-files-found: ignore
+
+    - name: coverage python project fail
+      if: steps.coverage.outcome == 'failure'
+      run: exit 1
+      shell: bash

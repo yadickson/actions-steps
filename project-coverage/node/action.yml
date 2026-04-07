@@ -1,0 +1,31 @@
+name: 'actions-steps/project-coverage/node'
+description: 'Coverage node project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: coverage node project
+      if: hashFiles('package.json') != ''
+      run: npm run test:coverage
+      id: coverage
+      continue-on-error: true
+      shell: bash
+
+    - uses: actions/upload-artifact@v6
+      with:
+        name: coverage
+        path: |
+          "coverage"
+          "reports/coverage"
+        retention-days: 1
+        if-no-files-found: ignore
+
+    - name: coverage node project fail
+      if: steps.coverage.outcome == 'failure'
+      run: exit 1
+      shell: bash
