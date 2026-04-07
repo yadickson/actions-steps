@@ -54,5 +54,5 @@ jobs:
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
           tag_name: ${{ env.VERSION }}
-          make_latest: true
+          make_latest: false
 
