@@ -19,6 +19,7 @@ jobs:
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
       shell: bash
     - uses: dev-drprasad/delete-tag-and-release@v1.1
+      continue-on-error: true
       with:
         delete_release: true
         tag_name: ${{ env.VERSION }}
