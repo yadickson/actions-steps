@@ -11,7 +11,7 @@ runs:
 
     - name: updating path
       if: hashFiles('pyproject.toml') != ''
-      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      run: echo "~/.local/bin" >> $GITHUB_PATH
       shell: bash
 
     - name: building python project

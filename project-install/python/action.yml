@@ -13,10 +13,13 @@ runs:
       if: hashFiles('pyproject.toml') != ''
       run: pip install .[dev]
       shell: bash
+      env:
+        PIP_CACHE_DIR: ~/.cache/pip
+        PIP_ROOT_USER_ACTION: ignore
 
     - name: updating path
       if: hashFiles('pyproject.toml') != ''
-      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      run: echo "~/.local/bin" >> $GITHUB_PATH
       shell: bash
 
     - name: creating python requirements
