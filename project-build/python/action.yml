@@ -9,18 +9,9 @@ runs:
   using: "composite"
   steps:
 
-    - name: activate python environment
+    - name: building python project
       if: hashFiles('pyproject.toml') != ''
       run: |
         source .venv/bin/activate
-      shell: bash
-
-    - name: updating path
-      if: hashFiles('pyproject.toml') != ''
-      run: echo "~/.local/bin" >> $GITHUB_PATH
-      shell: bash
-
-    - name: building python project
-      if: hashFiles('pyproject.toml') != ''
-      run: poetry build
+        poetry build
       shell: bash
