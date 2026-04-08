@@ -11,10 +11,12 @@ runs:
 
     - name: updating path
       if: hashFiles('pyproject.toml') != ''
-      run: echo "~/.local/bin" >> $GITHUB_PATH
+      run: echo "~/.local/libs/bin" >> $GITHUB_PATH
       shell: bash
 
     - name: building python project
       if: hashFiles('pyproject.toml') != ''
       run: poetry build
       shell: bash
+      env:
+        PYTHONPATH: ~/.local/libs

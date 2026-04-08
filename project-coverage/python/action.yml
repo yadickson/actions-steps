@@ -11,7 +11,7 @@ runs:
 
     - name: updating path
       if: hashFiles('pyproject.toml') != ''
-      run: echo "~/.local/bin" >> $GITHUB_PATH
+      run: echo "~/.local/libs/bin" >> $GITHUB_PATH
       shell: bash
 
     - name: coverage python project
@@ -20,6 +20,8 @@ runs:
       id: coverage
       continue-on-error: true
       shell: bash
+      env:
+        PYTHONPATH: ~/.local/libs
 
     - uses: actions/upload-artifact@v6
       with:
