@@ -23,7 +23,6 @@ runs:
       uses: actions/cache@v5
       with:
         path: |
-          ~/.local/libs
+          .venv
           requirements.txt
         key: cache-dependencies
-

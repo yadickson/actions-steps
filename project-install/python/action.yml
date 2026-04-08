@@ -11,17 +11,18 @@ runs:
 
     - name: installing python project
       if: hashFiles('pyproject.toml') != ''
-      run: pip install .[dev] --no-cache-dir --target ~/.local/libs
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install .[dev] --no-cache-dir
       shell: bash
 
     - name: updating path
       if: hashFiles('pyproject.toml') != ''
-      run: echo "~/.local/libs/bin" >> $GITHUB_PATH
+      run: echo "~/.local/bin" >> $GITHUB_PATH
       shell: bash
 
     - name: creating python requirements
       if: hashFiles('pyproject.toml') != ''
       run: poetry export --without-hashes --output requirements.txt
       shell: bash
-      env:
-        PYTHONPATH: ~/.local/libs
