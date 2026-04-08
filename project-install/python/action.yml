@@ -11,5 +11,15 @@ runs:
 
     - name: installing python project
       if: hashFiles('pyproject.toml') != ''
+      run: pip install .[dev]
+      shell: bash
+
+    - name: updating path
+      if: hashFiles('pyproject.toml') != ''
+      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      shell: bash
+
+    - name: creating python requirements
+      if: hashFiles('pyproject.toml') != ''
       run: poetry export --without-hashes --output requirements.txt
       shell: bash
