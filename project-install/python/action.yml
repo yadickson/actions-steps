@@ -14,6 +14,6 @@ runs:
       run: |
         python -m venv .venv
         source .venv/bin/activate
-        pip install .[dev] --no-cache-dir
+        pip install .[dev,lint,test] --no-cache-dir
         poetry export --without-hashes --output requirements.txt
       shell: bash
