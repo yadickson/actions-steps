@@ -15,9 +15,5 @@ runs:
         python -m venv .venv
         source .venv/bin/activate
         pip install .[dev] --no-cache-dir
-      shell: bash
-
-    - name: creating python requirements
-      if: hashFiles('pyproject.toml') != ''
-      run: poetry export --without-hashes --output requirements.txt
+        poetry export --without-hashes --output requirements.txt
       shell: bash
