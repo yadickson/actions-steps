@@ -1,0 +1,15 @@
+name: 'actions-steps/project-lint/node'
+description: 'Linting node project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: linting node project
+      if: hashFiles('package.json') != ''
+      run: npm run lint
+      shell: bash

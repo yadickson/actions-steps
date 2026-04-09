@@ -1,0 +1,17 @@
+name: 'actions-steps/project-lint/python'
+description: 'Linting python project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: linting python project
+      if: hashFiles('pyproject.toml') != ''
+      run: |
+        source .venv/bin/activate
+        poetry run poe lint
+      shell: bash
