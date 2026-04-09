@@ -3,7 +3,8 @@ description: 'Create project badge'
 inputs:
   version:
     description: version
-    required: true
+    required: false
+    default: ''
 
   gist-id:
     description: gist id
@@ -23,9 +24,7 @@ runs:
 
     - uses: actions/download-artifact@v4
 
-    - run: |
-        echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-        echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+    - run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       shell: bash
 
     - if: ${{ inputs.version }} != ''
@@ -35,7 +34,7 @@ runs:
         auth: ${{ inputs.gist-token }}
         filename: ${{ env.REPO_NAME }}-version.json
         label: version
-        message: v${{ env.VERSION }}
+        message: ${{ inputs.version }}
         color: green
 
     - uses: gaelgirodon/ci-badges-action@v1
