@@ -1,9 +1,5 @@
 name: 'actions-steps/project-version/python'
 description: 'Getting python project version'
-outputs:
-  version:
-    description: "The python project version value"
-    value: ${{ steps.project_version.outputs.version }}
 
 branding:
   icon: 'box'
@@ -18,5 +14,13 @@ runs:
       if: hashFiles('pyproject.toml') != ''
       run: |
         VERSION=$(grep -E '^version' pyproject.toml | cut -f2 -d":" | cut -f2 -d\")
-        echo "version=${VERSION}" >> $GITHUB_OUTPUT
+        echo "${VERSION}" > version.txt
       shell: bash
+
+    - uses: actions/upload-artifact@v6
+      with:
+        name: version
+        path: version.xml
+        retention-days: 1
+        if-no-files-found: ignore
+
