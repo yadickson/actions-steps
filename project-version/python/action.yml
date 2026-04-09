@@ -10,7 +10,6 @@ runs:
   steps:
 
     - name: getting python version
-      id: project_version
       if: hashFiles('pyproject.toml') != ''
       run: |
         VERSION=$(grep -E '^version' pyproject.toml | cut -f2 -d":" | cut -f2 -d\")
