@@ -36,7 +36,7 @@ runs:
         filename: ${{ env.REPO_NAME }}-version.json
         label: version
         message: ${{ env.VERSION }}
-        color: green
+        color: brightgreen
         forceUpdate: true
         style: flat
 
