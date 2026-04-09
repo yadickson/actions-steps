@@ -35,6 +35,8 @@ runs:
         label: version
         message: ${{ env.VERSION }}
         color: green
+        forceUpdate: true
+        style: flat
 
     - uses: gaelgirodon/ci-badges-action@v1
       with:
