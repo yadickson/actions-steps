@@ -19,7 +19,7 @@ runs:
     - uses: actions/upload-artifact@v6
       with:
         name: version
-        path: version.xml
+        path: version.txt
         retention-days: 1
         if-no-files-found: ignore
 
