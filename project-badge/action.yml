@@ -1,11 +1,6 @@
 name: 'actions-steps/project-badge'
 description: 'Create project badge'
 inputs:
-  version:
-    description: version
-    required: false
-    default: ''
-
   gist-id:
     description: gist id
     required: true
@@ -23,18 +18,23 @@ runs:
   steps:
 
     - uses: actions/download-artifact@v4
+    - uses: yadickson/actions-steps/cache-version@v1
+
+    - if: hashFiles('version.txt') != ''
+      run: echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
+      shell: bash
 
     - run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       shell: bash
 
-    - if: ${{ inputs.version }} != ''
+    - if: hashFiles('version.txt') != ''
       uses: schneegans/dynamic-badges-action@v1.8.0
       with:
         gistID: ${{ inputs.gist-id }}
         auth: ${{ inputs.gist-token }}
         filename: ${{ env.REPO_NAME }}-version.json
         label: version
-        message: ${{ inputs.version }}
+        message: ${{ env.VERSION }}
         color: green
 
     - uses: gaelgirodon/ci-badges-action@v1
