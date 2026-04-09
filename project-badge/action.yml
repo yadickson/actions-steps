@@ -23,7 +23,10 @@ runs:
   steps:
 
     - uses: actions/download-artifact@v4
-    - run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
+    - run: |
+        echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+        echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
       shell: bash
 
     - if: ${{ inputs.version }} != ''
@@ -33,7 +36,7 @@ runs:
         auth: ${{ inputs.gist-token }}
         filename: ${{ env.REPO_NAME }}-version.json
         label: version
-        message: ${{ inputs.version }}
+        message: v${{ env.VERSION }}
         color: green
 
     - uses: gaelgirodon/ci-badges-action@v1
