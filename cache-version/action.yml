@@ -13,4 +13,5 @@ runs:
       uses: actions/cache@v5
       with:
         path: version.txt
-        key: cache-version
+        key: ${{ runner.os }}-cache-version-${{ hashFiles('version.txt') }}
+        restore-keys: ${{ runner.os }}-cache-version-

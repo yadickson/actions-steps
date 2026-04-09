@@ -16,7 +16,8 @@ runs:
         path: |
           node_modules
           package-lock.json
-        key: cache-dependencies
+        key: ${{ runner.os }}-cache-dependencies-${{ hashFiles('package.json') }}
+        restore-keys: ${{ runner.os }}-cache-dependencies-
 
     - name: getting python dependencies
       if: hashFiles('pyproject.toml') != ''
@@ -25,4 +26,6 @@ runs:
         path: |
           .venv
           requirements.txt
-        key: cache-dependencies
+        key: ${{ runner.os }}-cache-dependencies-${{ hashFiles('pyproject.toml') }}
+        restore-keys: ${{ runner.os }}-cache-dependencies-
+
