@@ -21,9 +21,7 @@ runs:
     - uses: actions/upload-artifact@v7
       with:
         name: coverage
-        path: |
-          coverage
-          reports/coverage
+        path: ./**/coverage
         retention-days: 1
         if-no-files-found: ignore
 
