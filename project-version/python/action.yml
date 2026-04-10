@@ -14,7 +14,7 @@ runs:
       run: |
         VERSION=$(grep -E '^version' pyproject.toml | cut -f2 -d":" | cut -f2 -d\")
         echo "${VERSION}" > version.txt
-      shell: bash
+      shell: sh
 
     - uses: actions/upload-artifact@v7
       with:

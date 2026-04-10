@@ -19,7 +19,7 @@ jobs:
       - id: project
         uses: yadickson/actions-steps/project-type@REF
       - run: echo ${{ steps.project.type }}
-        shell: bash
+        shell: sh
 ```
 
 **actions-steps/cache-dependencies**

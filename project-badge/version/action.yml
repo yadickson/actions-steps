@@ -23,10 +23,10 @@ runs:
 
     - if: hashFiles('version.txt') != ''
       run: echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
-      shell: bash
+      shell: sh
 
     - run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-      shell: bash
+      shell: sh
 
     - if: hashFiles('version.txt') != ''
       uses: schneegans/dynamic-badges-action@v1.8.0

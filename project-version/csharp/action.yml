@@ -1,5 +1,5 @@
-name: 'actions-steps/project-version/node'
-description: 'Getting node project version'
+name: 'actions-steps/project-version/csharp'
+description: 'Getting csharp project version'
 
 branding:
   icon: 'box'
@@ -9,10 +9,10 @@ runs:
   using: "composite"
   steps:
 
-    - name: getting node version
-      if: hashFiles('package.json') != ''
+    - name: getting csharp version
+      if: hashFiles('*.csproj') != ''
       run: |
-        VERSION=$(grep 'version' package.json | cut -f2 -d":" | cut -f2 -d\")
+        VERSION=$(dotnet build /getProperty:Version *.csproj)
         echo "${VERSION}" > version.txt
       shell: sh
 

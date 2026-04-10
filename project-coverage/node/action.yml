@@ -14,7 +14,7 @@ runs:
       run: npm run test:coverage
       id: coverage
       continue-on-error: true
-      shell: bash
+      shell: sh
 
     - uses: actions/upload-artifact@v7
       with:
@@ -26,4 +26,4 @@ runs:
     - name: coverage node project fail
       if: steps.coverage.outcome == 'failure'
       run: exit 1
-      shell: bash
+      shell: sh

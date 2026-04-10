@@ -17,13 +17,19 @@ runs:
       if: hashFiles('package.json') != ''
       run: |
         echo "TYPE=node" >> $GITHUB_ENV
-      shell: bash
+      shell: sh
 
     - name: getting python type
       if: hashFiles('pyproject.toml') != ''
       run: |
         echo "TYPE=python" >> $GITHUB_ENV
-      shell: bash
+      shell: sh
+
+    - name: getting csharp type
+      if: hashFiles('**/*.csproj') != ''
+      run: |
+        echo "TYPE=csharp" >> $GITHUB_ENV
+      shell: sh
 
     - name: getting project type
       id: project_type
@@ -31,7 +37,7 @@ runs:
         if [ -n "${{ env.TYPE }}" ]; then
           echo "type=${{ env.TYPE }}" >> $GITHUB_OUTPUT
         else
-          echo "Project is not node|python"
+          echo "Project is not node|python|csharp"
           exit 1
         fi
-      shell: bash
+      shell: sh

@@ -12,4 +12,4 @@ runs:
     - name: building node project
       if: hashFiles('package.json') != ''
       run: npm run build
-      shell: bash
+      shell: sh
