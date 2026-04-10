@@ -1,5 +1,5 @@
-name: 'actions-steps/project-badge'
-description: 'Create project badge'
+name: 'actions-steps/project-badge/version'
+description: 'Create project badge version'
 inputs:
   gist-id:
     description: gist id
@@ -39,8 +39,3 @@ runs:
         color: brightgreen
         forceUpdate: true
         style: flat
-
-    - uses: gaelgirodon/ci-badges-action@v1
-      with:
-        gist-id: ${{ inputs.gist-id }}
-        token: ${{ inputs.gist-token }}

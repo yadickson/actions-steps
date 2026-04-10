@@ -1,0 +1,23 @@
+name: 'actions-steps/project-badge-test'
+description: 'Create project badge test files'
+inputs:
+  gist-id:
+    description: gist id
+    required: true
+
+  gist-token:
+    description: gist token
+    required: true
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - uses: gaelgirodon/ci-badges-action@v1
+      with:
+        gist-id: ${{ inputs.gist-id }}
+        token: ${{ inputs.gist-token }}

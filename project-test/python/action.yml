@@ -20,10 +20,8 @@ runs:
 
     - uses: actions/upload-artifact@v6
       with:
-        name: xunit
-        path: |
-          reports/xunit.xml
-          reports/**/test*results.xml
+        name: test-results
+        path: reports/**/test*results.xml
         retention-days: 1
         if-no-files-found: ignore
 
