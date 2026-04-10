@@ -11,5 +11,5 @@ runs:
 
     - name: building maven project
       if: hashFiles('pom.xml') != ''
-      run: maven package
+      run: mvn package
       shell: bash
