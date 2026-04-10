@@ -1,0 +1,15 @@
+name: 'actions-steps/project-build/maven'
+description: 'Building maven project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: building maven project
+      if: hashFiles('pom.xml') != ''
+      run: maven package
+      shell: bash

@@ -26,9 +26,15 @@ runs:
       shell: bash
 
     - name: getting csharp type
-      if: hashFiles('**/*.csproj') != ''
+      if: hashFiles('*.csproj') != ''
       run: |
         echo "TYPE=csharp" >> $GITHUB_ENV
+      shell: bash
+
+    - name: getting maven type
+      if: hashFiles('pom.xml') != ''
+      run: |
+        echo "TYPE=maven" >> $GITHUB_ENV
       shell: bash
 
     - name: getting project type
@@ -37,7 +43,7 @@ runs:
         if [ -n "${{ env.TYPE }}" ]; then
           echo "type=${{ env.TYPE }}" >> $GITHUB_OUTPUT
         else
-          echo "Project is not node|python|csharp"
+          echo "Project is not node|python|csharp|maven"
           exit 1
         fi
       shell: bash

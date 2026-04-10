@@ -1,0 +1,15 @@
+name: 'actions-steps/project-install/maven'
+description: 'Installing maven project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: installing maven project
+      if: hashFiles('pom.xml') != ''
+      run: mvn install
+      shell: bash

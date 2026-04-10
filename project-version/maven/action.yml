@@ -1,0 +1,25 @@
+name: 'actions-steps/project-version/maven'
+description: 'Getting maven project version'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: getting maven version
+      if: hashFiles('pom.xml') != ''
+      run: |
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "${VERSION}" > version.txt
+      shell: bash
+
+    - uses: actions/upload-artifact@v7
+      with:
+        name: version
+        path: version.txt
+        retention-days: 1
+        if-no-files-found: ignore
+
