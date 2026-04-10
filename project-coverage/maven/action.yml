@@ -1,0 +1,29 @@
+name: 'actions-steps/project-coverage/maven'
+description: 'Coverage maven project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: coverage maven project
+      if: hashFiles('*pom.xml') != ''
+      run: mvn verify
+      id: coverage
+      continue-on-error: true
+      shell: bash
+
+    - uses: actions/upload-artifact@v7
+      with:
+        name: coverage
+        path: ./**/coverage
+        retention-days: 1
+        if-no-files-found: ignore
+
+    - name: coverage maven project fail
+      if: steps.coverage.outcome == 'failure'
+      run: exit 1
+      shell: bash

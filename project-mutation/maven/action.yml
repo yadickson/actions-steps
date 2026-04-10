@@ -1,0 +1,29 @@
+name: 'actions-steps/project-mutation/maven'
+description: 'Mutation testing maven project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: mutation testing maven project
+      if: hashFiles('pom.xml') != ''
+      run: mvn org.pitest:pitest-maven:mutationCoverage
+      id: mutation
+      continue-on-error: true
+      shell: bash
+
+    - uses: actions/upload-artifact@v7
+      with:
+        name: mutation
+        path: ./**/mutation
+        retention-days: 1
+        if-no-files-found: ignore
+
+    - name: mutation maven project fail
+      if: steps.mutation.outcome == 'failure'
+      run: exit 1
+      shell: bash

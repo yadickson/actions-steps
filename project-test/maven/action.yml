@@ -1,5 +1,5 @@
-name: 'actions-steps/project-test/csharp'
-description: 'Testing csharp project'
+name: 'actions-steps/project-test/maven'
+description: 'Testing maven project'
 
 branding:
   icon: 'box'
@@ -9,9 +9,9 @@ runs:
   using: "composite"
   steps:
 
-    - name: testing csharp project
-      if: hashFiles('*.csproj') != '' && hashFiles('global.json') != ''
-      run: dotnet r test
+    - name: testing maven project
+      if: hashFiles('pom.xml') != ''
+      run: maven test
       id: testing
       continue-on-error: true
       shell: bash
@@ -19,11 +19,11 @@ runs:
     - uses: actions/upload-artifact@v7
       with:
         name: test-results
-        path: ./**/test*results.xml
+        path: ./**/*est*esults.xml
         retention-days: 1
         if-no-files-found: ignore
 
-    - name: testing csharp project fail
+    - name: testing maven project fail
       if: steps.testing.outcome == 'failure'
       run: exit 1
       shell: bash
