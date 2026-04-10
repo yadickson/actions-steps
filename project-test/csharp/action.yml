@@ -11,7 +11,7 @@ runs:
 
     - name: testing node project
       if: hashFiles('*.csproj') != '' && hashFiles('global.json') != ''
-      run: donet r test
+      run: dotnet r test
       id: testing
       continue-on-error: true
       shell: bash

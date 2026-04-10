@@ -11,5 +11,5 @@ runs:
 
     - name: building csharp project
       if: hashFiles('*.csproj') != '' && hashFiles('global.json') != ''
-      run: donet r build
+      run: dotnet r build
       shell: bash

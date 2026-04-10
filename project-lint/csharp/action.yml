@@ -11,5 +11,5 @@ runs:
 
     - name: linting csharp project
       if: hashFiles('*.csproj') != '' && hashFiles('global.json') != ''
-      run: donet r lint
+      run: dotnet r lint
       shell: bash
