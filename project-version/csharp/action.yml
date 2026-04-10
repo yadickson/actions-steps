@@ -14,7 +14,7 @@ runs:
       run: |
         VERSION=$(dotnet build /getProperty:Version *.csproj)
         echo "${VERSION}" > version.txt
-      shell: sh
+      shell: bash
 
     - uses: actions/upload-artifact@v7
       with:

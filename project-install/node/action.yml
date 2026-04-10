@@ -12,4 +12,4 @@ runs:
     - name: installing node project
       if: hashFiles('package.json') != ''
       run: npm install --force --verbose
-      shell: sh
+      shell: bash

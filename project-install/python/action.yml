@@ -16,4 +16,4 @@ runs:
         source .venv/bin/activate
         pip install .[dev,lint,test] --no-cache-dir
         poetry export --without-hashes --output requirements.txt
-      shell: sh
+      shell: bash

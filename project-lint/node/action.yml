@@ -12,4 +12,4 @@ runs:
     - name: linting node project
       if: hashFiles('package.json') != ''
       run: npm run lint
-      shell: sh
+      shell: bash
