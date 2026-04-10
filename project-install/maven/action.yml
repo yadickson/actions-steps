@@ -11,5 +11,5 @@ runs:
 
     - name: installing maven project
       if: hashFiles('pom.xml') != ''
-      run: mvn install
+      run: mvn dependency:resolve
       shell: bash
