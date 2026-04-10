@@ -1,0 +1,15 @@
+name: 'actions-steps/project-build/csharp'
+description: 'Building csharp project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: building csharp project
+      if: hashFiles('*.csproj') != '' && hashFiles('global.json') != ''
+      run: donet r build
+      shell: bash

@@ -1,0 +1,29 @@
+name: 'actions-steps/project-test/csharp'
+description: 'Testing csharp project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: testing node project
+      if: hashFiles('*.csproj') != '' && hashFiles('global.json') != ''
+      run: donet r test
+      id: testing
+      continue-on-error: true
+      shell: bash
+
+    - uses: actions/upload-artifact@v7
+      with:
+        name: test-results
+        path: ./**/test*results.xml
+        retention-days: 1
+        if-no-files-found: ignore
+
+    - name: testing node project fail
+      if: steps.testing.outcome == 'failure'
+      run: exit 1
+      shell: bash

@@ -1,0 +1,17 @@
+name: 'actions-steps/project-install/csharp'
+description: 'Installing csharp project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: installing csharp project
+      if: hashFiles('*.csproj') != ''
+      run: |
+        dotnet tool restore
+        dotnet restore
+      shell: bash

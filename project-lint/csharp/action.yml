@@ -1,0 +1,15 @@
+name: 'actions-steps/project-lint/csharp'
+description: 'Linting csharp project'
+
+branding:
+  icon: 'box'
+  color: 'green'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: linting csharp project
+      if: hashFiles('*.csproj') != '' && hashFiles('global.json') != ''
+      run: donet r lint
+      shell: bash
